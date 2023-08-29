@@ -11,11 +11,16 @@ if (isset($_POST['login']))
     $lozinka_login=$_POST['lozinka'];
 
     
-    $stmt=$pdo->prepare("SELECT email FROM korisnici WHERE email=:email");
+    $stmt=$pdo->prepare("SELECT * FROM korisnici WHERE email=:email");
     $stmt->bindParam(":email", $email_login);
     $stmt->execute();
 
     $user=$stmt->fetch();
+
+
+    //test
+        // print_r(array_values($user));
+
 
     if ($user && password_verify($lozinka_login, $user['lozinka']))
     {
