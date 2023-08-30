@@ -35,28 +35,30 @@ if (isset($_POST['registracija']))
 
             if($stmt->execute())
             {
-                echo "Uspješna registracija";
+                $message_good= "Uspješna registracija";
             }
             else
             {
-                echo "Došlo je do greške";
+                $message_bad= "Došlo je do greške";
             }
         }
         else
         {
-            echo "Korisnik s tim mailom već postoji";
+            $message_bad= "Korisnik s tim mailom već postoji";
         }
 
     }
     else
     {
-        echo "Lozinka i ponovljena lozinka se ne podudaraju";
+        $message_bad= "Lozinka i ponovljena lozinka se ne podudaraju";
     }
 
 }
 
 ?>
-
+        <p>Već ste registrirani?</p>
+        <button onclick="window.location.href='./Login.php';">Log in</button>
+        <hr>
         <h2>Registracijska forma</h2>
             <hr>
             <p>Ispunite sve podatke:</p>
@@ -69,5 +71,12 @@ if (isset($_POST['registracija']))
 
                 <input type="submit" name="registracija" value="Registriraj se">
             </form>
+            <hr>
 
-
+<?php if ($message_good) ?>
+    <h3 style="color: darkgreen";><?php echo $message_good; ?></h3>
+<php endif; ?>
+    
+<?php if ($message_bad) ?>
+    <h3  style="color: red";><?php echo $message_bad; ?></h3>
+<php endif; ?>

@@ -19,22 +19,24 @@ if (isset($_POST['login']))
 
 
     //test
-        // print_r(array_values($user));
+    // print_r(array_values($user));
 
 
     if ($user && password_verify($lozinka_login, $user['lozinka']))
     {
-        echo "Uspješan login";
+        $message_good= "Uspješan login";
     }
     else
     {
-        echo "Login nije uspio";
+        $message_bad= "Login nije uspio";
     }
 
 }
 
 ?>
-
+        <p>Niste registrirani?</p>
+        <button onclick="window.location.href='./Login.php';">Registracija</button>
+        <hr>
         <h2>Login forma</h2>
             <hr>
             <p>Unesite mail i lozinku</p>
@@ -44,3 +46,12 @@ if (isset($_POST['login']))
 
                 <input type="submit" name="login" value="Log in">
             </form>
+            <hr>
+
+<?php if ($message_good) ?>
+    <h3 style="color: darkgreen";><?php echo $message_good; ?></h3>
+<php endif; ?>
+    
+<?php if ($message_bad) ?>
+    <h3  style="color: red";><?php echo $message_bad; ?></h3>
+<php endif; ?>
