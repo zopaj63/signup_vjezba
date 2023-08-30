@@ -80,3 +80,6 @@ if (isset($_POST['registracija']))
 <?php if ($message_bad) ?>
     <h3  style="color: red";><?php echo $message_bad; ?></h3>
 <php endif; ?>
+
+<hr>
+<a href="https://github.com/zopaj63/signup_vjezba" target="_blank">Git<a/>

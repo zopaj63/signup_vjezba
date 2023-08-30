@@ -35,7 +35,7 @@ if (isset($_POST['login']))
 
 ?>
         <p>Niste registrirani?</p>
-        <button onclick="window.location.href='./Login.php';">Registracija</button>
+        <button onclick="window.location.href='./Registracija.php';">Registracija</button>
         <hr>
         <h2>Login forma</h2>
             <hr>
@@ -55,3 +55,6 @@ if (isset($_POST['login']))
 <?php if ($message_bad) ?>
     <h3  style="color: red";><?php echo $message_bad; ?></h3>
 <php endif; ?>
+
+<hr>
+<a href="https://github.com/zopaj63/signup_vjezba" target="_blank">Git<a/>
