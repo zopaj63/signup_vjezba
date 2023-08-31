@@ -13,19 +13,21 @@ if (isset($_POST['registracija']))
     $lozinka=$_POST['lozinka'];
     $lozinkap=$_POST['lozinkap'];
 
-    if($lozinka===$lozinkap)
+    if($lozinka===$lozinkap) // usporedba lozinke i ponovljene lozinke
     {
-        $stmt=$pdo->prepare("SELECT email FROM korisnici WHERE email=:email");
+        // dohvat iz baze
+        $stmt=$pdo->prepare("SELECT email FROM korisnici WHERE email=:email"); // traženje upisanog emaila u bazi
         $stmt->bindParam(":email", $email);
         $stmt->execute();
 
-        $user=$stmt->fetch();
+        $user=$stmt->fetch(); // stvara asocijativni niz
 
-        if (!$user)
+        if (!$user) // ako upisani mail ne postoji...
         {
-            $token=bin2hex(random_bytes(16));
-            $lozinka_hash=password_hash($lozinka, PASSWORD_DEFAULT);
+            $token=bin2hex(random_bytes(16)); // kreiranje tokena
+            $lozinka_hash=password_hash($lozinka, PASSWORD_DEFAULT);  // hashiranje lozinke
 
+            // upis korisnika u bazu
             $stmt=$pdo->prepare("INSERT INTO korisnici (ime, prezime, email, lozinka, token) VALUES (:ime, :prezime, :email, :lozinka, :token)");
             $stmt->bindParam(":ime", $ime);
             $stmt->bindParam(":prezime", $prezime);

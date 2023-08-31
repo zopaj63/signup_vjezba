@@ -10,19 +10,19 @@ if (isset($_POST['login']))
     $email_login=$_POST['email'];
     $lozinka_login=$_POST['lozinka'];
 
-    
+    // dohvat iz baze
     $stmt=$pdo->prepare("SELECT * FROM korisnici WHERE email=:email");
     $stmt->bindParam(":email", $email_login);
     $stmt->execute();
 
-    $user=$stmt->fetch();
+    $user=$stmt->fetch(); // asocijativni niz korisnika s tim emailom
 
 
     //test
     // print_r(array_values($user));
 
 
-    if ($user && password_verify($lozinka_login, $user['lozinka']))
+    if ($user && password_verify($lozinka_login, $user['lozinka'])) // provjera imamo li korisnika i usporedba unešene i hashirane lozinke iz baze
     {
         $message_good= "Uspješan login";
     }
