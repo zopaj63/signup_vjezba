@@ -1,9 +1,10 @@
 <?php
 
-require_once "./Database.php";
+require "autoload.php";
 
-$db=new Database();
-$pdo=$db->connect();
+$config=new Config("config.ini");
+$db=Database::getInstance($config);
+$conn=$db->getConnection();
 
 if (isset($_POST['registracija']))
 {
@@ -16,7 +17,7 @@ if (isset($_POST['registracija']))
     if($lozinka===$lozinkap) // usporedba lozinke i ponovljene lozinke
     {
         // dohvat iz baze
-        $stmt=$pdo->prepare("SELECT email FROM korisnici WHERE email=:email"); // traženje upisanog emaila u bazi
+        $stmt=$conn->prepare("SELECT email FROM korisnici WHERE email=:email"); // traženje upisanog emaila u bazi
         $stmt->bindParam(":email", $email);
         $stmt->execute();
 
@@ -28,7 +29,7 @@ if (isset($_POST['registracija']))
             $lozinka_hash=password_hash($lozinka, PASSWORD_DEFAULT);  // hashiranje lozinke
 
             // upis korisnika u bazu
-            $stmt=$pdo->prepare("INSERT INTO korisnici (ime, prezime, email, lozinka, token) VALUES (:ime, :prezime, :email, :lozinka, :token)");
+            $stmt=$conn->prepare("INSERT INTO korisnici (ime, prezime, email, lozinka, token) VALUES (:ime, :prezime, :email, :lozinka, :token)");
             $stmt->bindParam(":ime", $ime);
             $stmt->bindParam(":prezime", $prezime);
             $stmt->bindParam(":email", $email);

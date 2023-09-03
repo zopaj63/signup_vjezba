@@ -1,9 +1,10 @@
 <?php
 
-require_once "./Database.php";
+require "autoload.php";
 
-$db=new Database();
-$pdo=$db->connect();
+$config=new Config("config.ini");
+$db=Database::getInstance($config);
+$conn=$db->getConnection();
 
 if (isset($_POST['login']))
 {
@@ -11,7 +12,7 @@ if (isset($_POST['login']))
     $lozinka_login=$_POST['lozinka'];
 
     // dohvat iz baze
-    $stmt=$pdo->prepare("SELECT * FROM korisnici WHERE email=:email");
+    $stmt=$conn->prepare("SELECT * FROM korisnici WHERE email=:email");
     $stmt->bindParam(":email", $email_login);
     $stmt->execute();
 
